@@ -50,6 +50,7 @@ def vllm_infer(
     top_k: int = 50,
     max_new_tokens: int = 1024,
     repetition_penalty: float = 1.0,
+    random_seed: int = 42,
 ):
     r"""
     Performs batch generation using vLLM engine, which supports tensor parallelism.
@@ -109,6 +110,7 @@ def vllm_infer(
         stop_token_ids=[tokenizer.eos_token_id] + tokenizer.additional_special_tokens_ids,
         max_tokens=generating_args.max_new_tokens,
         skip_special_tokens=False,
+        seed=random_seed,
     )
     if model_args.adapter_name_or_path is not None:
         lora_request = LoRARequest("default", 1, model_args.adapter_name_or_path[0])

@@ -189,7 +189,7 @@ def _get_preprocessed_dataset(
     """
     if dataset is None:
         return None
-
+    
     preprocess_func, print_function = get_preprocess_and_print_func(
         data_args, stage, template, tokenizer, processor, do_generate=(training_args.predict_with_generate and is_eval)
     )
@@ -198,10 +198,10 @@ def _get_preprocessed_dataset(
     if not data_args.streaming:
         kwargs = dict(
             num_proc=data_args.preprocessing_num_workers,
-            load_from_cache_file=(not data_args.overwrite_cache) or (training_args.local_process_index != 0),
+            load_from_cache_file=False,
             desc="Running tokenizer on dataset",
         )
-
+    
     dataset = dataset.map(
         preprocess_func,
         batched=True,

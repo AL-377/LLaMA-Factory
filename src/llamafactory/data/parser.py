@@ -107,7 +107,6 @@ def get_dataset_list(dataset_names: Optional[Sequence[str]], dataset_dir: str) -
             dataset_attr = DatasetAttr(load_from, dataset_name=name)
             dataset_list.append(dataset_attr)
             continue
-
         if name not in dataset_info:
             raise ValueError(f"Undefined dataset {name} in {DATA_CONFIG}.")
 
