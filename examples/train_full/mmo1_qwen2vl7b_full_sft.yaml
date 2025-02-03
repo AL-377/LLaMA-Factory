@@ -1,0 +1,54 @@
+### model
+# model_name_or_path: /map-vepfs/huggingface/models/Qwen2-VL-7B-Instruct
+model_name_or_path: /map-vepfs/xinrun/LLaMA-Factory/saves/mmo1_qwen2_vl-7b/full/sft_1472_28190_v1d0_bs4_gas1_20250108
+# trust_remote_code: true
+# resume_from_checkpoint: saves/mmo1_qwen2_vl-72b/full/sft/checkpoint-1
+
+### method
+stage: sft
+do_train: true
+finetuning_type: full
+freeze_vision_tower: true  # choices: [true, false]
+train_mm_proj_only: false  # choices: [true, false]
+deepspeed: examples/deepspeed/ds_z3_config.json  # choices: [ds_z0_config.json, ds_z2_config.json, ds_z3_config.json]
+
+### dataset
+# dataset: Open-o1-vl-4500-train_format,openo1_sft_data_pro_sharegpt_format_125k
+# dataset: llava_one_vision_training_k1_458
+# dataset: openo1_sft_clean_data_28190_v1_with_gt_trainformat, OpenO1Vision_4o_2k_boxed_filtered
+# dataset: qvq_k1_llava_one_vision_distilled_hybrid_1361_1348
+# dataset: OpenO1Vision_4o_2k_boxed_filtered
+# dataset: llava_one_vision_gemini_training_480
+# dataset: llava_one_vision_gemini_training_1472, openo1_sft_clean_data_28190_v1_with_gt_trainformat
+dataset: llava_one_vision_train_full_opensplit_shuffle50k_refined_btsp
+template: qwen2_vl
+cutoff_len: 8192
+# max_samples: 1348 # only for llava_one_vision_training_hybrid_1361
+overwrite_cache: true
+preprocessing_num_workers: 109
+
+### output
+output_dir: saves/mmo1_qwen2_vl-7b/full/sft_shuffle50k_refined_btsp_v1d1_bs2_gas2_20250114
+logging_steps: 1
+save_steps: 100000
+plot_loss: true
+overwrite_output_dir: true
+
+### train
+per_device_train_batch_size: 2
+gradient_accumulation_steps: 2
+learning_rate: 5.0e-5
+num_train_epochs: 3.0
+lr_scheduler_type: cosine
+warmup_ratio: 0.1
+bf16: true
+ddp_timeout: 180000000
+
+# ### eval
+# val_size: 0.1
+# per_device_eval_batch_size: 1
+# eval_strategy: steps
+# eval_steps: 50000000000000000000000000000000000000000000
+
+report_to: wandb
+# run_name: mmo1_qwen2vl72b_full_sft # optional
