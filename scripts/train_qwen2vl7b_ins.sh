@@ -14,7 +14,7 @@ export MASTER_PORT=${MLP_WORKER_0_PORT:-${MASTER_PORT:-1234}}
 
 export WANDB_PROJECT=mmo1_qwen2vl72b_full_sft
 export WANDB_NAME=mmo1_qwen2vl72b_full_sft_$(date "+%Y-%m-%d-%H-%M")
-export WANDB_API_KEY=e63cd115eacb0920fe8e9bf9f202886252698004
+export WANDB_API_KEY=XXXX
 
 # FORCE_TORCHRUN=1 llamafactory-cli train examples/train_full/mmo1_qwen2vl72b_full_sft.yaml
 
